@@ -31,6 +31,7 @@
       "globalopts": {
         "title": "Global settings",
         "data": {
+          "devshow_timeout": "Timeout in minutes for devices to be shown in the Select Devices",
           "max_area_radius": "Max radius in metres for simple AREA detection",
           "max_velocity": "Max Velocity in metres per second - ignore readings that imply movement away faster than this limit. 3m/s (10km/h) is good.",
           "devtracker_nothome_timeout": "Devtracker Timeout in seconds to consider a device as `Not Home`.",

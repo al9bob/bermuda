@@ -64,6 +64,7 @@ from .const import (
     BEACON_PRIVATE_BLE_SOURCE,
     CONF_ATTENUATION,
     CONF_DEVICES,
+    CONF_DEVSHOW_TIMEOUT,
     CONF_DEVTRACK_TIMEOUT,
     CONF_MAX_RADIUS,
     CONF_MAX_VELOCITY,
@@ -73,6 +74,7 @@ from .const import (
     CONF_UPDATE_INTERVAL,
     CONFDATA_SCANNERS,
     DEFAULT_ATTENUATION,
+    DEFAULT_DEVSHOW_TIMEOUT,
     DEFAULT_DEVTRACK_TIMEOUT,
     DEFAULT_MAX_RADIUS,
     DEFAULT_MAX_VELOCITY,
@@ -195,6 +197,7 @@ class BermudaDataUpdateCoordinator(DataUpdateCoordinator):
         # TODO: This is only here because we haven't set up migration of config
         # entries yet, so some users might not have this defined after an update.
         self.options[CONF_ATTENUATION] = DEFAULT_ATTENUATION
+        self.options[CONF_DEVSHOW_TIMEOUT] = DEFAULT_DEVSHOW_TIMEOUT
         self.options[CONF_DEVTRACK_TIMEOUT] = DEFAULT_DEVTRACK_TIMEOUT
         self.options[CONF_MAX_RADIUS] = DEFAULT_MAX_RADIUS
         self.options[CONF_MAX_VELOCITY] = DEFAULT_MAX_VELOCITY

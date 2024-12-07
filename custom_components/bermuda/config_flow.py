@@ -26,6 +26,7 @@ from .const import (
     BDADDR_TYPE_PRIVATE_RESOLVABLE,
     CONF_ATTENUATION,
     CONF_DEVICES,
+    CONF_DEVSHOW_TIMEOUT,
     CONF_DEVTRACK_TIMEOUT,
     CONF_MAX_RADIUS,
     CONF_MAX_VELOCITY,
@@ -37,6 +38,7 @@ from .const import (
     CONF_SMOOTHING_SAMPLES,
     CONF_UPDATE_INTERVAL,
     DEFAULT_ATTENUATION,
+    DEFAULT_DEVSHOW_TIMEOUT,
     DEFAULT_DEVTRACK_TIMEOUT,
     DEFAULT_MAX_RADIUS,
     DEFAULT_MAX_VELOCITY,
@@ -200,6 +202,10 @@ class BermudaOptionsFlowHandler(OptionsFlowWithConfigEntry):
 
         data_schema = {
             vol.Required(
+                CONF_DEVSHOW_TIMEOUT,
+                default=self.options.get(CONF_DEVSHOW_TIMEOUT, DEFAULT_DEVSHOW_TIMEOUT),
+            ): vol.Coerce(int),
+            vol.Required(
                 CONF_MAX_RADIUS,
                 default=self.options.get(CONF_MAX_RADIUS, DEFAULT_MAX_RADIUS),
             ): vol.Coerce(float),
@@ -245,12 +251,16 @@ class BermudaOptionsFlowHandler(OptionsFlowWithConfigEntry):
         options_metadevices = []  # These will be first in the list
         options_otherdevices = []  # These will be last.
         options_randoms = []  # Random MAC addresses - very last!
+        devshow_Timeout = self.options.get(CONF_DEVSHOW_TIMEOUT, DEFAULT_DEVSHOW_TIMEOUT)
 
         for device in self.devices.values():
             # Iterate through all the discovered devices to build the options list
 
             name = device.prefname or device.name or ""
-
+            
+            if device.last_seen < MONOTONIC_TIME() - (60 * devshow_Timeout):  # 15 minutes
+                # Not Seen for Configured Time, Do Not Show
+                continue
             if device.is_scanner:
                 # We don't "track" scanner devices, per se
                 continue

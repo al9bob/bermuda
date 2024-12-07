@@ -121,6 +121,9 @@ DOCS[CONF_MAX_VELOCITY] = (
     "this limit. 3m/s (10km/h) is good.",  # fmt: skip
 )
 
+CONF_DEVSHOW_TIMEOUT, DEFAULT_DEVSHOW_TIMEOUT = "devshow_timeout", 15
+DOCS[CONF_DEVSHOW_TIMEOUT] = "Timeout in minutes for devices to be shown in the 'Select Devices'"  # fmt: skip
+
 CONF_DEVTRACK_TIMEOUT, DEFAULT_DEVTRACK_TIMEOUT = "devtracker_nothome_timeout", 30
 DOCS[CONF_DEVTRACK_TIMEOUT] = "Timeout in seconds for setting devices as `Not Home` / `Away`."  # fmt: skip
 
